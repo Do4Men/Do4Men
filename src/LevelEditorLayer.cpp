@@ -1,6 +1,6 @@
 //#include <Geode/Geode.hpp>
 //using namespace geode::prelude;
-//#include "saved.cpp"
+//#include "saved.hpp"
 //#include <time.h>
 //#include <cvolton.level-id-api/include/EditorIDs.hpp>
 //#include <Geode/modify/LevelEditorLayer.hpp>
@@ -10,7 +10,6 @@
 //		auto Tot = Mod::get()->getSavedValue<Total>("Tot");
 //		Tot.attTot = level->m_timestamp;
 //		Mod::get()->setSavedValue("Tot", Tot);
-//		Mod::get()->saveData();
 //		log::error("LevelEditorLayer");
 //		return true;
 //	}

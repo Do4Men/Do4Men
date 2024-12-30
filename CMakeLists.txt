@@ -10,7 +10,7 @@ project(Do4Men VERSION 1.0.0)
 add_library(${PROJECT_NAME} SHARED
     
     # Add any extra C++ source files here
- "src/PlayLayer.cpp" "src/saved.cpp"  "src/MenuLayer.cpp" "src/LevelInfoLayer.cpp" "src/GameTT.cpp" "src/LevTT.cpp" "src/LevelEditorLayer.cpp")
+ "src/PlayLayer.cpp" "src/saved.hpp"  "src/MenuLayer.cpp" "src/LevelInfoLayer.cpp" "src/GameTT.cpp" "src/LevTT.cpp" "src/LevelEditorLayer.cpp")
 
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR "Unable to find Geode SDK! Please define GEODE_SDK environment variable to point to Geode")

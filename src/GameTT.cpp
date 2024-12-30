@@ -1,6 +1,6 @@
 #include <Geode/Geode.hpp>
 using namespace geode::prelude;
-#include "saved.cpp"
+#include "saved.hpp"
 #include <time.h>
 #include <Geode/ui/Popup.hpp>
 class GameTT : public geode::Popup<> {
@@ -26,7 +26,6 @@ protected:
             auto Tot = Mod::get()->getSavedValue<Total>("Tot");
             Tot.textTot = text;
             Mod::get()->setSavedValue("Tot", Tot);
-            Mod::get()->saveData();
             });
         m_mainLayer->addChildAtPosition(input, Anchor::Top, { 0, -10 });
 
@@ -87,10 +86,10 @@ protected:
                 ->setCrossAxisOverflow(false)
             );
             Menu->setAnchorPoint({ 0, 0 });
-            struct tm* time = localtime(&DayValue.stDay);
+            struct tm time = fmt::localtime(DayValue.stDay);
             DayGamee = DayValue.DayGame;
             std::string S[7] = { "Sun", "Mon", "Tus", "Wed", "Thu", "Fri", "Sat" };
-            auto text = cocos2d::CCLabelBMFont::create(fmt::format("{} {} - {}\n{}{}", S[time->tm_wday], time->tm_mday, DayGamee.size(), formatTime(DayValue.tPlayDay), formatAtt(DayValue.attDay)).c_str(), "chatFont.fnt");
+            auto text = cocos2d::CCLabelBMFont::create(fmt::format("{} {} - {}\n{}{}", S[time.tm_wday], time.tm_mday, DayGamee.size(), formatTime(DayValue.tPlayDay), formatAtt(DayValue.attDay)).c_str(), "chatFont.fnt");
             auto input = TextInput::create(Width / 1.5, "", "chatFont.fnt");
             auto Button = CCMenuItemExt::createSpriteExtraWithFrameName("navArrowBtn_001.png", 0.5f, [this, DayKey](auto) {
                 auto Day = Mod::get()->getSavedValue<std::map<std::string, Days>>("Day", {});
@@ -104,7 +103,6 @@ protected:
                 auto Day = Mod::get()->getSavedValue<std::map<std::string, Days>>("Day", {});
                 Day[DayKey].textDay = text;
                 Mod::get()->setSavedValue("Day", Day);
-                Mod::get()->saveData();
                 });
             input->setTextAlign(TextInputAlign::Left);
             DayList->m_contentLayer->addChild(Menu);
@@ -135,12 +133,12 @@ protected:
             );
             Menu->setAnchorPoint({ 0, 0 });
             auto DayGame = Game[std::to_string(LevDayGameValue.stDayGame)];
-            struct tm* timest = localtime(&DayGame.stGame);
-            int sth = timest->tm_hour;
-            int stm = timest->tm_min;
-            struct tm* timeend = localtime(&DayGame.endGame);
+            struct tm timest = fmt::localtime(DayGame.stGame);
+            int sth = timest.tm_hour;
+            int stm = timest.tm_min;
+            struct tm timeend = fmt::localtime(DayGame.endGame);
             GameSess = DayGame.GameSes;
-            auto text = cocos2d::CCLabelBMFont::create(fmt::format("{:02}:{:02}-{:02}:{:02} - {}\n{}{}", sth, stm, timeend->tm_hour, timeend->tm_min, GameSess.size(), formatTime(DayGame.tPlayGame), formatAtt(DayGame.attGame)).c_str(), "chatFont.fnt");
+            auto text = cocos2d::CCLabelBMFont::create(fmt::format("{:02}:{:02}-{:02}:{:02} - {}\n{}{}", sth, stm, timeend.tm_hour, timeend.tm_min, GameSess.size(), formatTime(DayGame.tPlayGame), formatAtt(DayGame.attGame)).c_str(), "chatFont.fnt");
             auto input = TextInput::create(Width / 1.5, "", "chatFont.fnt");
             auto Button = CCMenuItemExt::createSpriteExtraWithFrameName("navArrowBtn_001.png", 0.5f, [this, LevDayGameValue](auto) {
                 auto Game = Mod::get()->getSavedValue<std::map<std::string, Games>>("Game", {});
@@ -154,7 +152,6 @@ protected:
                 auto Game = Mod::get()->getSavedValue<std::map<std::string, Games>>("Game", {});
                 Game[std::to_string(LevDayGameValue.stDayGame)].textGame = text;
                 Mod::get()->setSavedValue("Game", Game);
-                Mod::get()->saveData();
                 });
             input->setTextAlign(TextInputAlign::Left);
             GameList->m_contentLayer->addChild(Menu);
@@ -186,11 +183,11 @@ protected:
             Menu->setAnchorPoint({ 0, 0 });
             auto Lev = Level[GameSesValue.TypeGameLev].Level[std::to_string(GameSesValue.IDGameLev)];
             auto LevSes = Lev.LevSes[std::to_string(GameSesValue.stGameSes)];
-            struct tm* timest = localtime(&LevSes.stLevSes);
-            int sth = timest->tm_hour;
-            int stm = timest->tm_min;
-            struct tm* timeend = localtime(&LevSes.endLevSes);
-            auto text = cocos2d::CCLabelBMFont::create(fmt::format("{} {}\n{:02}:{:02}-{:02}:{:02}\n{}{}", Lev.nameLev, Lev.IDLev, sth, stm, timeend->tm_hour, timeend->tm_min, formatTime(LevSes.tPlayLevSes), formatAtt(LevSes.attLevSes)).c_str(), "chatFont.fnt");
+            struct tm timest = fmt::localtime(LevSes.stLevSes);
+            int sth = timest.tm_hour;
+            int stm = timest.tm_min;
+            struct tm timeend = fmt::localtime(LevSes.endLevSes);
+            auto text = cocos2d::CCLabelBMFont::create(fmt::format("{} {}\n{:02}:{:02}-{:02}:{:02}\n{}{}", Lev.nameLev, Lev.IDLev, sth, stm, timeend.tm_hour, timeend.tm_min, formatTime(LevSes.tPlayLevSes), formatAtt(LevSes.attLevSes)).c_str(), "chatFont.fnt");
             auto input = TextInput::create(Width / 1.5, "", "chatFont.fnt");
             auto Button = CCMenuItemExt::createSpriteExtraWithFrameName("navArrowBtn_001.png", 0.5f, [this](auto) {});
             Button->setVisible(false);
@@ -202,7 +199,6 @@ protected:
                 auto Level = Mod::get()->getSavedValue<std::map<std::string, Levels>>("Level", {});
                 Level[GameSesValue.TypeGameLev].Level[std::to_string(GameSesValue.IDGameLev)].LevSes[std::to_string(GameSesValue.stGameSes)].textLevSes = text;
                 Mod::get()->setSavedValue("Level", Level);
-                Mod::get()->saveData();
                 });
             input->setTextAlign(TextInputAlign::Left);
             LevList->m_contentLayer->addChild(Menu);

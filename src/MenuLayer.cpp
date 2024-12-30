@@ -1,6 +1,6 @@
 #include <Geode/Geode.hpp>
 using namespace geode::prelude;
-#include "saved.cpp"
+#include "saved.hpp"
 #include "GameTT.cpp"
 #include <time.h>
 #include <Geode/modify/MenuLayer.hpp>
@@ -11,16 +11,14 @@ class $modify(D4MLayer, MenuLayer) {
         if (!MenuLayer::init()) return false;
         if (!Mod::get()->hasSavedValue("Tot")) {
             Mod::get()->setSavedValue("Tot", Total{});
-            Mod::get()->saveData();
         }
         static bool isStart = false;
         if (!isStart) {
-            //кнопка чтоб убрать краши которая будет в будущем и уже есть, но обойдетесь
             stGame = time(NULL);
             isStart = true;
 
-            struct tm* stGtm = localtime(&stGame);
-            stDay = stGame - stGtm->tm_hour * 3600 - stGtm->tm_min * 60 - stGtm->tm_sec;
+            struct tm stGtm = fmt::localtime(stGame);
+            stDay = stGame - stGtm.tm_hour * 3600 - stGtm.tm_min * 60 - stGtm.tm_sec;
             auto Day = Mod::get()->getSavedValue<std::map<std::string, Days>>("Day", {});
             Day[std::to_string(stDay)].stDay = stDay;
 
@@ -33,7 +31,6 @@ class $modify(D4MLayer, MenuLayer) {
 
             Mod::get()->setSavedValue("Day", Day);
             Mod::get()->setSavedValue("Game", Game);
-            Mod::get()->saveData();
         }
         auto D4Mbutton = CCMenuItemSpriteExtra::create(
             CCSprite::createWithSpriteFrameName("GJ_statsBtn_001.png"),
@@ -57,7 +54,6 @@ class $modify(D4MLayer, MenuLayer) {
         auto Game = Mod::get()->getSavedValue<std::map<std::string, Games>>("Game", {});
         Game[std::to_string(stGame)].endGame = time(NULL);
         Mod::get()->setSavedValue("Game", Game);
-        Mod::get()->saveData();
         GameTT::create()->show();
     }
 };
@@ -67,7 +63,6 @@ class $modify(AppDelegate) {
         auto Game = Mod::get()->getSavedValue<std::map<std::string, Games>>("Game", {});
         Game[std::to_string(stGame)].endGame = time(NULL);
         Mod::get()->setSavedValue("Game", Game);
-        Mod::get()->saveData();
         if (Game[std::to_string(stGame)].GameSes.empty()) {
             auto Day = Mod::get()->getSavedValue<std::map<std::string, Days>>("Day", {});
             auto Game = Mod::get()->getSavedValue<std::map<std::string, Games>>("Game", {});
@@ -77,14 +72,12 @@ class $modify(AppDelegate) {
 
             Mod::get()->setSavedValue("Day", Day);
             Mod::get()->setSavedValue("Game", Game);
-            Mod::get()->saveData();
         }
         auto Day = Mod::get()->getSavedValue<std::map<std::string, Days>>("Day", {});
         if (Day[std::to_string(stDay)].DayGame.empty()) {
             auto Day = Mod::get()->getSavedValue<std::map<std::string, Days>>("Day", {});
             Day.erase(std::to_string(stDay));
             Mod::get()->setSavedValue("Day", Day);
-            Mod::get()->saveData();
         }
         AppDelegate::trySaveGame(p0);
     }

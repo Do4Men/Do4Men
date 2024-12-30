@@ -1,6 +1,6 @@
 #include <Geode/Geode.hpp>
 using namespace geode::prelude;
-#include "saved.cpp"
+#include "saved.hpp"
 #include "MenuLayer.cpp"
 #include <time.h>
 #include <cvolton.level-id-api/include/EditorIDs.hpp>
@@ -32,7 +32,6 @@ class $modify(PlayLayer) {
         Level[Type].Level[std::to_string(ID)].LevSes[std::to_string(stSes)].stLevSes = stSes;
         Mod::get()->setSavedValue("Game", Game);
         Mod::get()->setSavedValue("Level", Level);
-        Mod::get()->saveData();
         return true;
     }
     void resetLevel() {
@@ -73,7 +72,6 @@ class $modify(PlayLayer) {
         Mod::get()->setSavedValue("Day", Day);
         Mod::get()->setSavedValue("Game", Game);
         Mod::get()->setSavedValue("Level", Level);
-        Mod::get()->saveData();
         PlayLayer::resetLevel();
     }
     void onQuit() {
@@ -110,7 +108,6 @@ class $modify(PlayLayer) {
         Mod::get()->setSavedValue("Day", Day);
         Mod::get()->setSavedValue("Game", Game);
         Mod::get()->setSavedValue("Level", Level);
-        Mod::get()->saveData();
         stSes = 0;
         PlayLayer::onQuit();
     }
