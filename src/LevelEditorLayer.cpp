@@ -14,4 +14,4 @@
 //		log::error("LevelEditorLayer");
 //		return true;
 //	}
-//}; not now ;)
+//}; обойдетесь

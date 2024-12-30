@@ -233,7 +233,7 @@ protected:
         //text += " ";
         //return text;
 
-        long long time = long long(ceil(ttime));
+        long long time = (long long)ceil(ttime);
         std::string text;
         if (time >= 3600) text += std::to_string(int(time / 3600)) + "h";
         if (time >= 60) text += std::to_string(int(time % 3600 / 60)) + "m";

@@ -15,7 +15,7 @@ class $modify(D4MLayer, MenuLayer) {
         }
         static bool isStart = false;
         if (!isStart) {
-            //кнопка чтоб убрать краши
+            //кнопка чтоб убрать краши котора€ будет в будущем и уже есть, но обойдетесь
             stGame = time(NULL);
             isStart = true;
 
@@ -59,19 +59,6 @@ class $modify(D4MLayer, MenuLayer) {
         Mod::get()->setSavedValue("Game", Game);
         Mod::get()->saveData();
         GameTT::create()->show();
-
-        srand(time(0));
-        int Rand = rand() % 100;
-        if (!Rand) {
-            geode::createQuickPopup(
-                "Wow",            // title
-                "Mega reklama",   // content
-                "Nah", "Femboys",      // buttons
-                [](auto, bool btn2) {
-                    if (btn2) ShellExecuteA(0, 0, "https://t.me/utro14", 0, 0, SW_SHOW);
-                }
-            );
-        }
     }
 };
 #include <Geode/modify/AppDelegate.hpp>

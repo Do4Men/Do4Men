@@ -23,18 +23,5 @@ class $modify(D4MLayer, LevelInfoLayer) {
 
 		std::string ID = std::to_string(EditorIDs::getID(m_level));
 		LevTT::create(Type, ID)->show();
-
-		srand(time(0));
-		int Rand = rand() % 100;
-		if (!Rand) {
-			geode::createQuickPopup(
-				"Wow",            // title
-				"Mega reklama",   // content
-				"Nah", "Femboys",      // buttons
-				[](auto, bool btn2) {
-					if (btn2) ShellExecuteA(0, 0, "https://t.me/utro14", 0, 0, SW_SHOW);
-				}
-			);
-		}
 	}
 };

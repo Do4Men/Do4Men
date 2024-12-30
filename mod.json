@@ -8,11 +8,11 @@
 	},
 	"id": "do4men.do4men",
 	"name": "Do4Men",
-	"version": "v1.0.0",
+	"version": "v1.0.1",
 	"developer": "Do4Men",
-	"description": "Description optional",
+	"description": "Traks and display some stats",
 	"links": {
-		"source": "https://github.com/Alphalaneous/HappyTextures",
+		"source": "https://github.com/Do4Men/Do4Men",
 		"community": "https://discord.gg/uTfYmH8fkE"
 	},
 	"tags": [ "offline", "enhancement", "utility" ],
