@@ -1,6 +1,10 @@
+# v1.0.3
+
+ * New mod name and update description.
+
 # v1.0.2
 
- * Fixed cross platform
+ * Fixed cross platform.
 
 # v1.0.1
 
@@ -8,4 +12,4 @@
 
 # v1.0.0
 
- * Initial release
+ * Initial release.
